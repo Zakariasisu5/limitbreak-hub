@@ -1,73 +1,107 @@
-# Welcome to your Lovable project
 
-## Project info
+# limitbreak-hub
 
-**URL**: https://lovable.dev/projects/9d2c9031-6c6b-4493-8185-55f174fcfb49
+A small Vite + React + TypeScript starter with Tailwind CSS and a component collection (shadcn-style + Radix UI).
 
-## How can I edit this code?
+This repository appears to be a front-end app scaffolded with Vite and TypeScript. It includes a set of reusable UI components under `src/components`, utility hooks, and a few example pages in `src/pages`.
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- Vite for fast development and build
+- React + TypeScript
+- Tailwind CSS for styling
+- Radix UI primitives and shadcn-style components under `src/components/ui`
+- Example pages: `Index`, `Login`, `Profile`, `Quiz`, `ModuleReading`, `TokenGate`
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9d2c9031-6c6b-4493-8185-55f174fcfb49) and start prompting.
+## Tech stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Radix UI
+- React Router
 
-**Use your preferred IDE**
+## Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (18+ recommended)
+- A package manager (npm, pnpm, or yarn)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Install
 
-Follow these steps:
+Install dependencies:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```powershell
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+If you use yarn or pnpm, substitute the command accordingly.
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Development
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Start the dev server:
+
+```powershell
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+This runs the `vite` dev server and serves the app at http://localhost:5173 by default.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build
 
-**Use GitHub Codespaces**
+Create a production build:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```powershell
+npm run build
+```
 
-## What technologies are used for this project?
+There is also a `build:dev` script that runs `vite build --mode development` when needed.
 
-This project is built with:
+Preview the production build locally:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```powershell
+npm run preview
+```
 
-## How can I deploy this project?
+## Lint
 
-Simply open [Lovable](https://lovable.dev/projects/9d2c9031-6c6b-4493-8185-55f174fcfb49) and click on Share -> Publish.
+Run ESLint across the project:
 
-## Can I connect a custom domain to my Lovable project?
+```powershell
+npm run lint
+```
 
-Yes, you can!
+## Project structure
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- `src/` — application source
+	- `components/` — shared UI components and `ui/` primitives
+	- `hooks/` — custom React hooks
+	- `lib/` — utilities
+	- `pages/` — route pages
+	- `App.tsx`, `main.tsx` — app entry
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Contributing
+
+Contributions are welcome. Recommended workflow:
+
+1. Fork the repository
+2. Create a feature branch
+3. Open a pull request with a clear description of changes
+
+## Notes & next steps
+
+- Add a LICENSE file if you want to set an open-source license.
+- Add more documentation for the component API and any design tokens.
+- Add tests and CI configuration.
+
+## Author
+
+Repository owner: Zakariasisu5
+
+---
+
+If you'd like, I can also:
+
+- Add a LICENSE file (MIT/Apache/etc.)
+- Add README badges (build, license)
+- Extend the README with component usage examples and screenshots
