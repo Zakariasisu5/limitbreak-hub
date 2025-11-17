@@ -14,7 +14,109 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      module_progress: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          module_slug: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          module_slug: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          module_slug?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "module_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          has_token: boolean | null
+          id: string
+          points: number | null
+          updated_at: string | null
+          username: string
+          verified: boolean | null
+          wallet_address: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          has_token?: boolean | null
+          id: string
+          points?: number | null
+          updated_at?: string | null
+          username: string
+          verified?: boolean | null
+          wallet_address?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          has_token?: boolean | null
+          id?: string
+          points?: number | null
+          updated_at?: string | null
+          username?: string
+          verified?: boolean | null
+          wallet_address?: string | null
+        }
+        Relationships: []
+      }
+      quiz_scores: {
+        Row: {
+          completed_at: string | null
+          id: string
+          points_earned: number
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          points_earned: number
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          points_earned?: number
+          score?: number
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_scores_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
