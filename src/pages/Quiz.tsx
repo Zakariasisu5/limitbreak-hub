@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, XCircle, Trophy } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const quizQuestions = [
   {
@@ -46,11 +49,14 @@ const quizQuestions = [
 
 export default function Quiz() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [score, setScore] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
   const question = quizQuestions[currentQuestion];
@@ -69,13 +75,41 @@ export default function Quiz() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setShowFeedback(false);
     } else {
       setIsComplete(true);
+      
+      // Save score to database if user is logged in
+      if (user) {
+        setSaving(true);
+        const pointsEarned = score * 50;
+        const { error } = await supabase
+          .from('quiz_scores')
+          .insert({
+            user_id: user.id,
+            score,
+            total_questions: quizQuestions.length,
+            points_earned: pointsEarned,
+          });
+        
+        if (error) {
+          toast({
+            title: "Error saving score",
+            description: "Your score couldn't be saved, but you still earned the points!",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Score saved!",
+            description: `You earned ${pointsEarned} points!`,
+          });
+        }
+        setSaving(false);
+      }
     }
   };
 
@@ -135,9 +169,15 @@ export default function Quiz() {
               <Button variant="outline" onClick={() => window.location.reload()} className="flex-1">
                 Retake Quiz
               </Button>
-              <Button variant="default" onClick={() => navigate("/profile")} className="flex-1">
-                View Profile
-              </Button>
+              {user ? (
+                <Button variant="default" onClick={() => navigate("/profile")} className="flex-1" disabled={saving}>
+                  {saving ? 'Saving...' : 'View Profile'}
+                </Button>
+              ) : (
+                <Button variant="default" onClick={() => navigate("/auth")} className="flex-1">
+                  Sign Up to Save Progress
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
