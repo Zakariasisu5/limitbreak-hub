@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Hero = () => {
+  const { user, signOut } = useAuth();
+
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       <div className="container-custom">
@@ -26,15 +29,28 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-            <Button size="lg" variant="hero" asChild className="w-full sm:w-auto">
-              <Link to="/login">Connect Wallet</Link>
-            </Button>
-            <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
-              <Link to="/content">Explore Posts</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
-              <Link to="#how-it-works">How it Works</Link>
-            </Button>
+            {user ? (
+              <>
+                <Button size="lg" variant="hero" asChild className="w-full sm:w-auto">
+                  <Link to="/profile">My Profile</Link>
+                </Button>
+                <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
+                  <Link to="/content">Explore Posts</Link>
+                </Button>
+                <Button size="lg" variant="outline" onClick={signOut} className="w-full sm:w-auto">
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button size="lg" variant="hero" asChild className="w-full sm:w-auto">
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
+                  <Link to="/content">Explore Posts</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">

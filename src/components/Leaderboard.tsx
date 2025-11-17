@@ -2,23 +2,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Trophy, Medal, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-interface LeaderboardEntry {
-  rank: number;
-  username: string;
-  points: number;
-  badges: number;
-}
-
-const mockLeaderboard: LeaderboardEntry[] = [
-  { rank: 1, username: "CyberNinja", points: 2850, badges: 12 },
-  { rank: 2, username: "SecureShield", points: 2340, badges: 10 },
-  { rank: 3, username: "PhishHunter", points: 2120, badges: 9 },
-  { rank: 4, username: "MFAMaster", points: 1890, badges: 8 },
-  { rank: 5, username: "PrivacyPro", points: 1650, badges: 7 },
-];
+import { useLeaderboard } from "@/hooks/useLeaderboard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Leaderboard = () => {
+  const { leaderboard, loading } = useLeaderboard(5);
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
@@ -46,7 +34,16 @@ export const Leaderboard = () => {
             <CardDescription>See who's mastering security skills</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            {mockLeaderboard.map((entry) => (
+            {loading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} className="h-20 w-full" />
+              ))
+            ) : leaderboard.length === 0 ? (
+              <p className="text-center text-muted-foreground py-8">
+                No leaderboard data yet. Complete quizzes to earn points!
+              </p>
+            ) : (
+              leaderboard.map((entry) => (
               <div
                 key={entry.rank}
                 className="flex items-center justify-between p-4 rounded-lg bg-background/50 border border-primary/10 hover:border-primary/30 transition-all duration-300"
@@ -57,9 +54,6 @@ export const Leaderboard = () => {
                   </div>
                   <div>
                     <p className="font-semibold">{entry.username}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {entry.badges} badges earned
-                    </p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -67,7 +61,8 @@ export const Leaderboard = () => {
                   <p className="text-xs text-muted-foreground">points</p>
                 </div>
               </div>
-            ))}
+              ))
+            )}
             <div className="pt-4 text-center">
               <Button variant="outline" asChild>
                 <Link to="/profile">View Full Leaderboard</Link>
