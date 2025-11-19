@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      marketplace_listings: {
+        Row: {
+          active: boolean | null
+          category: Database["public"]["Enums"]["marketplace_category"]
+          created_at: string | null
+          delivery_method: string | null
+          description: string
+          id: string
+          image_url: string | null
+          price_lbt: number
+          seller_id: string
+          title: string
+          token_gated: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          category: Database["public"]["Enums"]["marketplace_category"]
+          created_at?: string | null
+          delivery_method?: string | null
+          description: string
+          id?: string
+          image_url?: string | null
+          price_lbt: number
+          seller_id: string
+          title: string
+          token_gated?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          category?: Database["public"]["Enums"]["marketplace_category"]
+          created_at?: string | null
+          delivery_method?: string | null
+          description?: string
+          id?: string
+          image_url?: string | null
+          price_lbt?: number
+          seller_id?: string
+          title?: string
+          token_gated?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_listings_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketplace_transactions: {
+        Row: {
+          amount_lbt: number
+          buyer_id: string
+          created_at: string | null
+          id: string
+          listing_id: string
+          seller_id: string
+          transaction_hash: string | null
+        }
+        Insert: {
+          amount_lbt: number
+          buyer_id: string
+          created_at?: string | null
+          id?: string
+          listing_id: string
+          seller_id: string
+          transaction_hash?: string | null
+        }
+        Update: {
+          amount_lbt?: number
+          buyer_id?: string
+          created_at?: string | null
+          id?: string
+          listing_id?: string
+          seller_id?: string
+          transaction_hash?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_transactions_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_transactions_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_transactions_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       module_progress: {
         Row: {
           completed: boolean | null
@@ -125,7 +230,12 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      marketplace_category:
+        | "courses"
+        | "tools"
+        | "services"
+        | "resources"
+        | "consulting"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -252,6 +362,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      marketplace_category: [
+        "courses",
+        "tools",
+        "services",
+        "resources",
+        "consulting",
+      ],
+    },
   },
 } as const

@@ -35,6 +35,9 @@ export const Hero = () => {
                   <Link to="/profile">My Profile</Link>
                 </Button>
                 <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
+                  <Link to="/marketplace">Marketplace</Link>
+                </Button>
+                <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
                   <Link to="/content">Explore Posts</Link>
                 </Button>
                 <Button size="lg" variant="outline" onClick={signOut} className="w-full sm:w-auto">
@@ -45,6 +48,9 @@ export const Hero = () => {
               <>
                 <Button size="lg" variant="hero" asChild className="w-full sm:w-auto">
                   <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
+                  <Link to="/marketplace">Marketplace</Link>
                 </Button>
                 <Button size="lg" variant="outline-light" asChild className="w-full sm:w-auto">
                   <Link to="/content">Explore Posts</Link>
