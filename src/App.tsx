@@ -13,6 +13,9 @@ import ModuleReading from "./pages/ModuleReading";
 import Quiz from "./pages/Quiz";
 import TokenGate from "./pages/TokenGate";
 import NotFound from "./pages/NotFound";
+import Marketplace from "./pages/Marketplace";
+import MarketplaceDetail from "./pages/MarketplaceDetail";
+import SellerDashboard from "./pages/SellerDashboard";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +35,9 @@ const App = () => (
             <Route path="/content/:slug" element={<ModuleReading />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/token-gate" element={<TokenGate />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/marketplace/:id" element={<MarketplaceDetail />} />
+            <Route path="/marketplace/sell" element={<SellerDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
